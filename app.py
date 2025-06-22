@@ -19,14 +19,19 @@ Focus especially on:
 Text:
 {text[:3000]}
 """
-    response = openai.ChatCompletion.create(
+
+    client = openai.OpenAI()
+
+    response = client.chat.completions.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are a helpful legal assistant."},
             {"role": "user", "content": prompt}
         ]
     )
-    return response["choices"][0]["message"]["content"]
+
+    return response.choices[0].message.content
+
 
 # --- Streamlit App Layout ---
 st.set_page_config(page_title="ToS Analyzer", layout="wide")
